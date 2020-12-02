@@ -69,11 +69,11 @@ def main():
     input = open("day/2/input.txt", "r")
     po_pw_list = [process_line(l) for l in input]
 
-    valid_policy_1_passwords = sum(is_valid_password(po, pw) for po, pw in po_pw_list)
-    print(f"there are {valid_policy_1_passwords} valid passwords according to policy 1")
+    valid_policy_1_count = sum(is_valid_password(po, pw) for po, pw in po_pw_list)
+    print(f"valid passwords according to policy 1: {valid_policy_1_count}")
 
-    valid_policy_2_passwords = sum(is_valid_password2(po, pw) for po, pw in po_pw_list)
-    print(f"there are {valid_policy_2_passwords} valid passwords according to policy 2")
+    valid_policy_2_count = sum(is_valid_password2(po, pw) for po, pw in po_pw_list)
+    print(f"valid passwords according to policy 2: {valid_policy_2_count}")
 
 
 if __name__ == "__main__":
