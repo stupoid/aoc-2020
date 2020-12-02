@@ -36,7 +36,6 @@ Given the same example list from above:
 How many passwords are valid according to the new interpretation of the policies?
 """
 
-
 from typing import NamedTuple, Tuple
 
 
@@ -68,16 +67,12 @@ def process_line(line: str) -> Tuple[Policy, str]:
 
 def main():
     input = open("day/2/input.txt", "r")
-    processed_lines = (process_line(l) for l in input)
-    valid_policy_1_passwords = 0
-    valid_policy_2_passwords = 0
-    for policy, password in processed_lines:
-        if is_valid_password(policy, password):
-            valid_policy_1_passwords += 1
-        if is_valid_password2(policy, password):
-            valid_policy_2_passwords += 1
+    po_pw_list = [process_line(l) for l in input]
 
+    valid_policy_1_passwords = sum(is_valid_password(po, pw) for po, pw in po_pw_list)
     print(f"there are {valid_policy_1_passwords} valid passwords according to policy 1")
+
+    valid_policy_2_passwords = sum(is_valid_password2(po, pw) for po, pw in po_pw_list)
     print(f"there are {valid_policy_2_passwords} valid passwords according to policy 2")
 
 

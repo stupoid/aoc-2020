@@ -52,23 +52,24 @@ def find_entries_that_sum_to(
 
 
 def main():
-    input_array = [int(l) for l in open("day/1/input.txt", "r")]
+    input = open("day/1/input.txt", "r")
+    entry_list = [int(l) for l in input]
     n = 2
     sum_to = 2020
 
-    if entries := find_entries_that_sum_to(input_array, n, sum_to):
+    if entries := find_entries_that_sum_to(entry_list, n, sum_to):
         product_of_entries = functools.reduce(mul, entries)
         print(f"product of {n} entries that sum to {sum_to}: {product_of_entries}")
     else:
-        print(f"product of {n} entries not found")
+        print(f"product of {n} entries that sum to {sum_to} not found")
 
     n = 3
 
-    if entries := find_entries_that_sum_to(input_array, n, sum_to):
+    if entries := find_entries_that_sum_to(entry_list, n, sum_to):
         product_of_entries = functools.reduce(mul, entries)
         print(f"product of {n} entries that sum to {sum_to}: {product_of_entries}")
     else:
-        print(f"product of {n} entries not found")
+        print(f"product of {n} entries that sum to {sum_to} not found")
 
 
 if __name__ == "__main__":
