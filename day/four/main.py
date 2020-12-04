@@ -170,11 +170,11 @@ def process_input(iterable: Iterable[str]) -> Iterable[Dict[str, str]]:
 
 def main():
     input_file = open("day/four/input.txt", "r")
-    input_list = [i for i in input_file]
-    result = sum(is_valid_passport(i, rules) for i in process_input(input_list))
+    processed_list = [i for i in process_input(input_file)]
+    result = sum(is_valid_passport(i, rules) for i in processed_list)
     print(f"valid passports: {result}")
 
-    result = sum(is_valid_passport(i, rules_2) for i in process_input(input_list))
+    result = sum(is_valid_passport(i, rules_2) for i in processed_list)
     print(f"valid passports with added validation: {result}")
 
 
