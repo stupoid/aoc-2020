@@ -74,7 +74,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-def test_find_entries_that_sum_to_2020():
-    assert False
