@@ -112,41 +112,38 @@ Count the number of valid passports - those that have all required fields and va
 """
 
 import re
-from typing import Callable, Dict, Iterable, Optional, Set, Tuple
+from typing import Callable, Dict, Iterable, Optional
 
 rules = {
-    ("byr", lambda x: True),
-    ("iyr", lambda x: True),
-    ("eyr", lambda x: True),
-    ("hgt", lambda x: True),
-    ("hcl", lambda x: True),
-    ("ecl", lambda x: True),
-    ("pid", lambda x: True),
-    ("cid", None),
+    "byr": lambda x: True,
+    "iyr": lambda x: True,
+    "eyr": lambda x: True,
+    "hgt": lambda x: True,
+    "hcl": lambda x: True,
+    "ecl": lambda x: True,
+    "pid": lambda x: True,
+    "cid": None,
 }
 
 rules_2 = {
-    ("byr", lambda x: len(x) == 4 and int(x) >= 1920 and int(x) <= 2002),
-    ("iyr", lambda x: len(x) == 4 and int(x) >= 2010 and int(x) <= 2020),
-    ("eyr", lambda x: len(x) == 4 and int(x) >= 2020 and int(x) <= 2030),
-    (
-        "hgt",
-        lambda x: (
-            (x[-2:] == "cm" and int(x[:-2]) >= 150 and int(x[:-2]) <= 193)
-            or (x[-2:] == "in" and int(x[:-2]) >= 59 and int(x[:-2]) <= 76)
-        ),
+    "byr": lambda x: len(x) == 4 and 1920 <= int(x) <= 2002,
+    "iyr": lambda x: len(x) == 4 and 2010 <= int(x) <= 2020,
+    "eyr": lambda x: len(x) == 4 and 2020 <= int(x) <= 2030,
+    "hgt": lambda x: (
+        (x[-2:] == "cm" and 150 <= int(x[:-2]) <= 193)
+        or (x[-2:] == "in" and 59 <= int(x[:-2]) <= 76)
     ),
-    ("hcl", lambda x: re.search(r"^#[0-9a-f]{6}$", x)),
-    ("ecl", lambda x: x in {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}),
-    ("pid", lambda x: re.search(r"^[0-9]{9}$", x)),
-    ("cid", None),
+    "hcl": lambda x: re.search(r"^#[0-9a-f]{6}$", x),
+    "ecl": lambda x: x in {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"},
+    "pid": lambda x: re.search(r"^[0-9]{9}$", x),
+    "cid": None,
 }
 
 
 def is_valid_passport(
-    passport: Dict[str, str], rules: Set[Tuple[str, Optional[Callable]]]
+    passport: Dict[str, str], rules: Dict[str, Optional[Callable]]
 ) -> bool:
-    for field, check in rules:
+    for field, check in rules.items():
         if check:
             if field not in passport or not check(passport[field]):
                 return False
