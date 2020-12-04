@@ -136,7 +136,7 @@ rules_2 = {
             or (x[-2:] == "in" and int(x[:-2]) >= 59 and int(x[:-2]) <= 76)
         ),
     ),
-    ("hcl", lambda x: re.search(r"^#(?:[0-9a-f]{6})$", x)),
+    ("hcl", lambda x: re.search(r"^#[0-9a-f]{6}$", x)),
     ("ecl", lambda x: x in {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}),
     ("pid", lambda x: re.search(r"^[0-9]{9}$", x)),
     ("cid", None),
