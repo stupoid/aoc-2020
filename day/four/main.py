@@ -115,13 +115,13 @@ import re
 from typing import Callable, Dict, Iterable, Optional, Set, Tuple
 
 rules = {
-    ("byr", lambda x: x),
-    ("iyr", lambda x: x),
-    ("eyr", lambda x: x),
-    ("hgt", lambda x: x),
-    ("hcl", lambda x: x),
-    ("ecl", lambda x: x),
-    ("pid", lambda x: x),
+    ("byr", lambda x: True),
+    ("iyr", lambda x: True),
+    ("eyr", lambda x: True),
+    ("hgt", lambda x: True),
+    ("hcl", lambda x: True),
+    ("ecl", lambda x: True),
+    ("pid", lambda x: True),
     ("cid", None),
 }
 
@@ -147,8 +147,9 @@ def is_valid_passport(
     passport: Dict[str, str], rules: Set[Tuple[str, Optional[Callable]]]
 ) -> bool:
     for field, check in rules:
-        if check and ((field not in passport) or not (check(passport[field]))):
-            return False
+        if check:
+            if field not in passport or not check(passport[field]):
+                return False
     return True
 
 

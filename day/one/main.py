@@ -52,8 +52,8 @@ def find_entries_that_sum_to(
 
 
 def main():
-    input = open("day/1/input.txt", "r")
-    entry_list = [int(l) for l in input]
+    input_file = open("day/one/input.txt", "r")
+    entry_list = [int(l) for l in input_file]
     n = 2
     sum_to = 2020
 

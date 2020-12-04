@@ -36,7 +36,7 @@ Given the same example list from above:
 How many passwords are valid according to the new interpretation of the policies?
 """
 
-from typing import NamedTuple, Tuple
+from typing import Callable, NamedTuple, Tuple
 
 
 class Policy(NamedTuple):
@@ -45,35 +45,37 @@ class Policy(NamedTuple):
     letter: str
 
 
-def is_valid_password(policy: Policy, password: str) -> bool:
-    letter_count = password.count(policy.letter)
-    return letter_count >= policy.num1 and letter_count <= policy.num2
+def rule(n1: int, n2: int, c: str, p: str) -> bool:
+    x = p.count(c)
+    return x >= n1 and x <= n2
 
 
-def is_valid_password2(policy: Policy, password: str) -> bool:
-    a = password[policy.num1 - 1] == policy.letter
-    b = password[policy.num2 - 1] == policy.letter
+def rule_2(n1: int, n2: int, c: str, p: str) -> bool:
+    a = p[n1 - 1] == c
+    b = p[n2 - 1] == c
     return (a or b) and not (a and b)
+
+
+def is_valid_password(policy: Policy, password: str, rule: Callable) -> bool:
+    return rule(*policy, password)
 
 
 def process_line(line: str) -> Tuple[Policy, str]:
     policy_str, password = line.split(":")
     nums_str, letter = policy_str.split(" ")
     num1, num2 = nums_str.split("-")
-    num1 = int(num1)
-    num2 = int(num2)
-    return Policy(num1, num2, letter), password.strip()
+    return Policy(int(num1), int(num2), letter), password.strip()
 
 
 def main():
-    input = open("day/2/input.txt", "r")
-    po_pw_list = [process_line(l) for l in input]
+    input_file = open("day/two/input.txt", "r")
+    po_pw_list = [process_line(l) for l in input_file]
 
-    valid_policy_1_count = sum(is_valid_password(po, pw) for po, pw in po_pw_list)
-    print(f"valid passwords according to policy 1: {valid_policy_1_count}")
+    valid_rule_1_count = sum(is_valid_password(po, pw, rule) for po, pw in po_pw_list)
+    print(f"valid passwords according to policy 1: {valid_rule_1_count}")
 
-    valid_policy_2_count = sum(is_valid_password2(po, pw) for po, pw in po_pw_list)
-    print(f"valid passwords according to policy 2: {valid_policy_2_count}")
+    valid_rule_2_count = sum(is_valid_password(po, pw, rule_2) for po, pw in po_pw_list)
+    print(f"valid passwords according to policy 2: {valid_rule_2_count}")
 
 
 if __name__ == "__main__":

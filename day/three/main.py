@@ -101,14 +101,9 @@ def get_trees_hit(map_iter: Iterable[str], move: Move, target_char: str = "#") -
     return sum(i for i, _ in tree_encounter(map_iter, move, target_char))
 
 
-def print_map(map_iter: Iterable[str], move: Move, target_char: str = "#"):
-    for _, l in tree_encounter(map_iter, move, target_char):
-        print(l)
-
-
 def main():
-    input = open("day/three/input.txt", "r")
-    map_list = [l.strip() for l in input]
+    input_file = open("day/three/input.txt", "r")
+    map_list = [l.strip() for l in input_file]
     move = Move(right=3, down=1)
     result = get_trees_hit(map_list, move)
     print(f"trees hit with move right {move.right} and down {move.down}: {result}")
