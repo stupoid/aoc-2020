@@ -138,7 +138,7 @@ rules_2 = {
     ),
     ("hcl", lambda x: re.search(r"^#(?:[0-9a-f]{6})$", x)),
     ("ecl", lambda x: x in {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}),
-    ("pid", lambda x: len(x) == 9),
+    ("pid", lambda x: re.search(r"^[0-9]{9}$", x)),
     ("cid", None),
 }
 
