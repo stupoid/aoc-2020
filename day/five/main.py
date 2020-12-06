@@ -68,30 +68,19 @@ def get_id(seat: str) -> int:
     return int(seat.translate(translation), 2)
 
 
-def missing_elements(sorted_list: List[int]) -> List[int]:
-    start, end = sorted_list[0], sorted_list[-1]
-    return sorted(set(range(start, end + 1)).difference(sorted_list))
-
-
-def is_consecutive(sorted_list: List[int]) -> bool:
-    return sorted_list[-1] == sorted_list[0] + len(sorted_list) - 1
-
-
 def find_missing_int(sorted_list: List[int]) -> int:
-    # exit condition takes into account single item array
-    # where the gap is the missing item
-    if len(sorted_list) <= 2:
-        return sorted_list[0] + 1
-
-    i = len(sorted_list) // 2
-
-    low_part = sorted_list[:i]
-    high_part = sorted_list[i:]
-
-    if not is_consecutive(high_part):
-        return find_missing_int(high_part)
-    else:
-        return find_missing_int(low_part)
+    # returns first int missing in sequence
+    # expected length is > 2, returns sorted_list[0] + 1 if length is 1
+    start = 0
+    end = len(sorted_list) - 1
+    while end - start > 1:
+        mid = start + (end - start) // 2
+        consecutive_low = sorted_list[mid] == sorted_list[start] + (mid - start)
+        if not consecutive_low:
+            end = mid
+        else:
+            start = mid
+    return sorted_list[start] + 1
 
 
 def main():

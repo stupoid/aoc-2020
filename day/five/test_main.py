@@ -43,3 +43,6 @@ def test_find_missing_int():
 
     test_list = [98, 100]
     assert find_missing_int(test_list) == 99
+
+    test_list = [5]
+    assert find_missing_int(test_list) == 6
