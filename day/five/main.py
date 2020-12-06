@@ -89,7 +89,7 @@ def main():
     result = max(id_list)
     print(f"the highest seat ID is: {result}")
 
-    print(f"the missing id is: {find_missing_int(sorted(id_list))}")
+    print(f"the missing seat ID is: {find_missing_int(sorted(id_list))}")
 
 
 if __name__ == "__main__":
