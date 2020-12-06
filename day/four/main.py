@@ -151,7 +151,7 @@ def is_valid_passport(
 
 
 def process_input(iterable: Iterable[str]) -> Iterable[Dict[str, str]]:
-    passport = dict()
+    passport = {}
     for i in iterable:
         i = i.strip()
         if i:
@@ -161,7 +161,7 @@ def process_input(iterable: Iterable[str]) -> Iterable[Dict[str, str]]:
                 passport[key] = value
         else:
             yield passport
-            passport = dict()
+            passport = {}
     if passport:
         yield passport
 

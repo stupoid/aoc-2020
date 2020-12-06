@@ -81,7 +81,7 @@ from typing import Iterable, List
 def count_consensus(group: List[str]) -> int:
     flattened_group = "".join(group)
     consensus = 0
-    for element, count in Counter(flattened_group).most_common():
+    for _, count in Counter(flattened_group).most_common():
         if count == len(group):
             consensus += 1
         else:

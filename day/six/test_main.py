@@ -1,4 +1,4 @@
-from day.six.main import process_groups, count_answers, count_consensus
+from day.six.main import count_answers, count_consensus, process_groups
 
 
 def test_process_groups():
@@ -17,6 +17,6 @@ def test_count_answers():
 
 def test_count_consensus():
     input_file = open("day/six/test_input.txt", "r")
-    total_count = sum([count_consensus(i) for i in process_groups(input_file)])
+    total_consensus = sum([count_consensus(i) for i in process_groups(input_file)])
 
-    assert total_count == 6
+    assert total_consensus == 6
