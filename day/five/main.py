@@ -54,23 +54,26 @@ from typing import List
 
 
 def get_row(seat: str) -> int:
-    translation = str.maketrans("FB", "01")
-    return int(seat[:7].translate(translation), 2)
+    table = str.maketrans("FB", "01")
+    return int(seat[:7].translate(table), 2)
 
 
 def get_col(seat: str) -> int:
-    translation = str.maketrans("LR", "01")
-    return int(seat[7:].translate(translation), 2)
+    table = str.maketrans("LR", "01")
+    return int(seat[7:].translate(table), 2)
 
 
 def get_id(seat: str) -> int:
-    translation = str.maketrans("LRFB", "0101")
-    return int(seat.translate(translation), 2)
+    table = str.maketrans("LRFB", "0101")
+    return int(seat.translate(table), 2)
 
 
 def find_missing_int(sorted_list: List[int]) -> int:
-    # returns first int missing in sequence
-    # expected length is > 2, returns sorted_list[0] + 1 if length is 1
+    """
+    returns missing int in asc sequence of ints
+    expects only 1 missing int and length > 2
+    returns sorted_list[0] + 1 if length is 1
+    """
     start = 0
     end = len(sorted_list) - 1
     while end - start > 1:

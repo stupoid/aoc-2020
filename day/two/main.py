@@ -53,7 +53,7 @@ def rule(n1: int, n2: int, c: str, p: str) -> bool:
 def rule_2(n1: int, n2: int, c: str, p: str) -> bool:
     a = p[n1 - 1] == c
     b = p[n2 - 1] == c
-    return (a or b) and not (a and b)
+    return a ^ b
 
 
 def is_valid_password(policy: Policy, password: str, rule: Callable) -> bool:
