@@ -84,10 +84,19 @@ from typing import Iterable, List, Tuple
 
 
 def find_contiguous_sum(numbers: List[int], target: int) -> Tuple[int, int]:
-    for i in range(len(numbers)):
-        for j in range(i + 1, len(numbers)):
-            if sum(numbers[i:j]) == target:
-                return min(numbers[i:j]), max(numbers[i:j])
+    start = 0
+    end = 1
+    c_sum = numbers[0]
+    while end - start >= 1:
+        if c_sum == target:
+            c_range = numbers[start:end]
+            return min(c_range), max(c_range)
+        elif c_sum < target:
+            end += 1
+            c_sum += numbers[end - 1]
+        else:
+            c_sum -= numbers[start]
+            start += 1
 
 
 def find_invalid(numbers: List[int], preamble: int) -> int:
