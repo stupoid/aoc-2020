@@ -92,8 +92,8 @@ def find_contiguous_sum(numbers: List[int], target: int) -> Tuple[int, int]:
             c_range = numbers[start:end]
             return min(c_range), max(c_range)
         elif c_sum < target:
+            c_sum += numbers[end]
             end += 1
-            c_sum += numbers[end - 1]
         else:
             c_sum -= numbers[start]
             start += 1
