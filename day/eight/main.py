@@ -156,6 +156,7 @@ def run_modified_until_exit(
     if i > len(program) - 1:
         return history, program
 
+    # start trying branches in reverse (might hit correct answer faster?)
     for index in range(len(history) - 1, 0, -1):
         i, _ = history[index]
         if program[i].startswith("nop") or program[i].startswith("jmp"):
