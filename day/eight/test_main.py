@@ -1,8 +1,17 @@
 from day.eight.main import (
+    Machine,
     print_history,
     run_modified_until_exit,
     run_until_loop_or_exit,
 )
+
+
+def test_machine():
+    input_file = open("day/eight/test_input.txt", "r")
+    machine = Machine(input_file)
+    machine.run()
+    print(machine)
+    assert False
 
 
 def test_run_until_loop_or_exit():

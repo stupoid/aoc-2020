@@ -80,7 +80,66 @@ Fix the program so that it terminates normally by changing exactly one jmp (to n
 
 
 """
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Iterable
+
+
+class Machine:
+    def __init__(self, program: Iterable[str]):
+        self.program = [l.strip() for l in program]
+        self.i = 0
+        self.acc = 0
+        self.history: List[Tuple[int, int]] = []
+        self.exit = self.i >= len(self.program)
+
+    def unstep(self):
+        self.i, self.acc = self.history.pop()
+
+    def step(self, branch=False):
+        self.history.append((self.i, self.acc))
+        op, arg = self.program[self.i].split(" ")
+        arg = int(arg)
+
+        if branch:
+            if op == "nop":
+                op = "jmp"
+            elif op == "jmp":
+                op = "nop"
+
+        if op == "nop":
+            self.i += 1
+        elif op == "acc":
+            self.acc += arg
+            self.i += 1
+        elif op == "jmp":
+            self.i += arg
+
+        self.exit = self.i >= len(self.program)
+
+    def run(self):
+        visited = {i for i, _ in self.history}
+        while not self.exit and (self.i not in visited):
+            visited.add(self.i)
+            self.step()
+
+    def __str__(self):
+        step_history = {}
+        for step, (i, acc) in enumerate(self.history, 1):
+            if i not in step_history:
+                step_history[i] = []
+            step_history[i].append(str(step))
+
+        step_history[self.i].append(f"{step+1}(!)")
+
+        output = ""
+        for i, line in enumerate(self.program):
+            output += f"{i+1:3}: {line:8}| {', '.join(step_history.get(i, [])):8}\n"
+
+        if self.exit:
+            output += f"loop detected at line: {self.i+1}"
+        else:
+            output += "program exit"
+
+        return output
 
 
 def print_history(
